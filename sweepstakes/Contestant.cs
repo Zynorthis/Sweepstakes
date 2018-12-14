@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace sweepstakes
 {
-    class Contestant
+    public class Contestant
     {
         private string firstName;
         private string lastName;
         private string emailAddress;
         public int registrationNumber;
-        public string FirstName { get { return firstName; } private set { firstName = value; } }
-        public string LastName { get { return lastName; } private set { lastName = value; } }
-        public string EmailAddress { get { return emailAddress; } private set { emailAddress = value; } }
+        public string FirstName { get { return firstName; } set { firstName = value; } }
+        public string LastName { get { return lastName; } set { lastName = value; } }
+        public string EmailAddress { get { return emailAddress; } set { emailAddress = value; } }
 
         public Contestant()
         {
