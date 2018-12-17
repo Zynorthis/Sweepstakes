@@ -9,12 +9,11 @@ namespace sweepstakes
     class MarketingFirm
     {
         Sweepstakes currentSelection;
-        List<Sweepstakes> sweepstakesList = new List<Sweepstakes>();
-        ISweepstakesManager manager;
+        ISweepstakesManager sweepstakesManager;
 
         public MarketingFirm(ISweepstakesManager manager)
         {
-            this.manager = manager;
+            this.sweepstakesManager = manager;
         }
 
         private void CreateSweepstake()
@@ -22,9 +21,10 @@ namespace sweepstakes
             GUI.CreateSweepstakeMenu();
             string sweepstakesName = Console.ReadLine();
             Sweepstakes newSweepstake = new Sweepstakes(sweepstakesName);
+
             try
             {
-                sweepstakesList.Add(newSweepstake);
+                sweepstakesManager.InsertSweepstakes(newSweepstake);
 
                 string messagePart1 = newSweepstake.Name;
                 string messagePart2 = " has been added to successfully!";
@@ -32,40 +32,14 @@ namespace sweepstakes
             }
             catch
             {
-                string error = "Error: could not setup add sweepstake to list.";
+                string error = "Error: could not add sweepstake to stack/queue.";
                 GUI.DisplayError(error);
             }
         }
-        private void SweepstakeSelector()
+        private void RunSweepstake()
         {
-
-            string sweepstakesName = Console.ReadLine();
-            bool isSweepstakeFound = false;
-            int i = 0;
-            while (isSweepstakeFound = false && i < sweepstakesList.Count)
-            {
-                if (sweepstakesName == sweepstakesList[i].Name)
-                {
-                    currentSelection = sweepstakesList[i];
-                    isSweepstakeFound = true;
-                }
-                else
-                {
-                    i++;
-                    isSweepstakeFound = false;
-                }
-            }
-            if (isSweepstakeFound == false)
-            {
-                string error = "Sweepstake was not found in the current list of sweepstakes.";
-                GUI.DisplayError(error);
-            }
-            else if (isSweepstakeFound == true)
-            {
-                string messagePart1 = currentSelection.Name;
-                string messagePart2 = " has been selected!";
-                GUI.DisplaySuccess(messagePart1, messagePart2);
-            }
+            currentSelection = sweepstakesManager.GetSweepstakes();
+            currentSelection.RunSweepstakes();
         }
     }
 }

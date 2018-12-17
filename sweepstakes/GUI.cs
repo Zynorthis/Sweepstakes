@@ -11,6 +11,9 @@ namespace sweepstakes
         public static string[,] infoScreen;
         public static string[,] contestantInfo;
         public static string[,] createSweepstakeMenu;
+        public static string[,] sweepstakesSetupMenu;
+        public static string[,] preWinnerPickQuestion;
+        public static string[,] getRegistrationNumberMenu;
         public static void ContestantInfoScreen(int phase)
         {
             Console.Clear();
@@ -103,12 +106,54 @@ namespace sweepstakes
                 Console.WriteLine(item);
             }
         }
-        public static void SweepstakeSelectorScreen(List<Sweepstakes> sweepstakesList)
+        public static void SweepstakesSetup()
         {
-
+            Console.Clear();
+            sweepstakesSetupMenu = new string[,]
+            {
+                { " _____________________________________________________ " },
+                { "|-----------------------------------------------------|" },
+                { "|      How many contestant need to be entered?        |" },
+                { "|_____________________________________________________|" }
+            };
+            foreach (var item in sweepstakesSetupMenu)
+            {
+                Console.WriteLine(item);
+            }
+        }
+        public static void PreWinnerPromp()
+        {
+            Console.Clear();
+            preWinnerPickQuestion = new string[,]
+            {
+                { " _____________________________________________________ " },
+                { "|-----------------------------------------------------|" },
+                { "|  Would you like to view any contestant information? |" },
+                { "|_____________________________________________________|" }
+            };
+            foreach (var item in preWinnerPickQuestion)
+            {
+                Console.WriteLine(item);
+            }
+        }
+        public static void GetRegistrationNumber()
+        {
+            Console.Clear();
+            getRegistrationNumberMenu = new string[,]
+            {
+                { " _____________________________________________________ " },
+                { "|-----------------------------------------------------|" },
+                { "|     Please enter contestant registration number.    |" },
+                { "|_____________________________________________________|" }
+            };
+            foreach (var item in getRegistrationNumberMenu)
+            {
+                Console.WriteLine(item);
+            }
         }
         public static void DisplaySuccess(string part1, string part2)
         {
+            Console.Clear();
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(part1 + part2);
             Console.ResetColor();
@@ -116,13 +161,15 @@ namespace sweepstakes
         }
         public static void DisplaySuccess(string part1)
         {
+            Console.Clear();
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(part1);
             Console.ResetColor();
-            Console.ReadKey();
+            // Console.ReadKey();
         }
         public static void DisplayError(string errorMessage)
         {
+            Console.Clear();
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(errorMessage);
             Console.ResetColor();

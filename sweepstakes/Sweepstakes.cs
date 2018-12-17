@@ -9,7 +9,7 @@ namespace sweepstakes
     class Sweepstakes
     {
         // member variables
-        Dictionary<int, Contestant> contestantDictonary = new Dictionary<int, Contestant>();
+        public Dictionary<int, Contestant> contestantDictonary = new Dictionary<int, Contestant>();
         private string name;
         public string Name { get { return name; } private set { name = value; } }
 
@@ -17,6 +17,48 @@ namespace sweepstakes
         public Sweepstakes(string name)
         {
             this.Name = name;
+        }
+
+        public void RunSweepstakes()
+        {
+            SweepstakesSetup();
+            PreWinnerPrompt();
+
+        }
+        private void SweepstakesSetup()
+        {
+            GUI.SweepstakesSetup();
+            int numberOfContestants = Int32.Parse(Console.ReadLine());
+            int i = 0;
+            while (i < numberOfContestants)
+            {
+                EnterContestantInfo();
+            }
+        }
+        private void PreWinnerPrompt()
+        {
+            GUI.PreWinnerPromp();
+            string answer = Console.ReadLine().ToLower();
+            if (answer == "yes")
+            {
+                GUI.GetRegistrationNumber();
+                int contestantRegistrationNumber = Int32.Parse(Console.ReadLine());
+                Contestant contestant = new Contestant();
+                contestant = contestantDictonary[contestantRegistrationNumber];
+                PrintContestantInfo(contestant);
+                PreWinnerPrompt();
+            }
+            else if (answer == "no")
+            {
+                Contestant winnerWinnerChickenDinner = PickWinner();
+                Console.WriteLine(winnerWinnerChickenDinner.FirstName + " " + winnerWinnerChickenDinner.LastName + " is the sweepstake winner!");
+                Console.ReadKey();
+            }
+            else
+            {
+                string error = "Error: Invalid input, please try again.";
+                GUI.DisplayError(error);
+            }
         }
         public void EnterContestantInfo()
         {
@@ -30,16 +72,16 @@ namespace sweepstakes
             GUI.ContestantInfoScreen(4);
             RegisterContestant(contestant);
         }
-        public void RegisterContestant(Contestant contestant)
+        private void RegisterContestant(Contestant contestant)
         {
             // begins key generation
             Random newKey = new Random();
             int key = newKey.Next(10000, 99999);
 
             contestant.registrationNumber = key;
-            contestantDictonary.Add(contestant.registrationNumber, contestant);
+            contestantDictonary.Add(key, contestant);
         }
-        private string PickWinner()
+        private Contestant PickWinner()
         {
             Random winningNumber = new Random();
             Contestant winningContestant = new Contestant();
@@ -59,8 +101,8 @@ namespace sweepstakes
                     isWinnerPicked = false;
                 }
             }
-            string winnerWinnerChickenDinner = winningContestant.FirstName + " " + winningContestant.LastName;
-            return winnerWinnerChickenDinner;
+            // string winnerWinnerChickenDinner = winningContestant.FirstName + " " + winningContestant.LastName;
+            return winningContestant;
         }
         private void PrintContestantInfo(Contestant contestant)
         {
