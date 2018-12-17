@@ -47,6 +47,7 @@ namespace sweepstakes
             while (isWinnerPicked == false)
             {
                 int winner = winningNumber.Next(10000, 99999);
+                System.Threading.Thread.Sleep(20);
                 try
                 {
                     winningContestant = contestantDictonary[winner];
@@ -54,7 +55,7 @@ namespace sweepstakes
                 }
                 catch
                 {
-                    Console.WriteLine("Key = " + winner + " was not found in dictonary.");
+                    Console.WriteLine("Key = " + winner + ": was not found in dictonary. Re-rolling...");
                     isWinnerPicked = false;
                 }
             }
@@ -66,10 +67,5 @@ namespace sweepstakes
             GUI.DisplayContestantInfo(contestant);
             Console.ReadKey();
         }
-    }
-    internal interface ISweepstakesManager
-    {
-        void InsertSweepstakes(Sweepstakes sweepstakes);
-        Sweepstakes GetSweepstakes();
     }
 }

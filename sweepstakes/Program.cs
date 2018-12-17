@@ -10,7 +10,8 @@ namespace sweepstakes
     {
         static void Main(string[] args)
         {
-            
+            GUI.ContestantInfoScreen(4);
+            Console.ReadKey();
         }
     }
 }

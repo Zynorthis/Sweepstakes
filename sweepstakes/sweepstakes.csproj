@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Contestant.cs" />
     <Compile Include="GUI.cs" />
+    <Compile Include="Interface.cs" />
     <Compile Include="MarketingFirm.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

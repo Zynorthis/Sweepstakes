@@ -103,5 +103,30 @@ namespace sweepstakes
                 Console.WriteLine(item);
             }
         }
+        public static void SweepstakeSelectorScreen(List<Sweepstakes> sweepstakesList)
+        {
+
+        }
+        public static void DisplaySuccess(string part1, string part2)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine(part1 + part2);
+            Console.ResetColor();
+            Console.ReadKey();
+        }
+        public static void DisplaySuccess(string part1)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine(part1);
+            Console.ResetColor();
+            Console.ReadKey();
+        }
+        public static void DisplayError(string errorMessage)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(errorMessage);
+            Console.ResetColor();
+            Console.ReadKey();
+        }
     }
 }
