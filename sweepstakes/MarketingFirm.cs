@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MimeKit;
+using MailKit.Net.Smtp;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,11 +18,13 @@ namespace sweepstakes
             this.sweepstakesManager = manager;
         }
 
-        private void CreateSweepstake()
+        public void CreateSweepstake()
         {
-            GUI.CreateSweepstakeMenu();
+            GUI.CreateSweepstakeMenu(1);
             string sweepstakesName = Console.ReadLine();
-            Sweepstakes newSweepstake = new Sweepstakes(sweepstakesName);
+            GUI.CreateSweepstakeMenu(2);
+            MailboxAddress sweepstakesEmail = MailboxAddress.Parse(Console.ReadLine());
+            Sweepstakes newSweepstake = new Sweepstakes(sweepstakesName, sweepstakesEmail);
 
             try
             {
@@ -36,7 +40,7 @@ namespace sweepstakes
                 GUI.DisplayError(error);
             }
         }
-        private void RunSweepstake()
+        public void RunSweepstake()
         {
             currentSelection = sweepstakesManager.GetSweepstakes();
             currentSelection.RunSweepstakes();

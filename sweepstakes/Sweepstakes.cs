@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MimeKit;
+using MailKit.Net.Smtp;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,11 +14,15 @@ namespace sweepstakes
         public Dictionary<int, Contestant> contestantDictonary = new Dictionary<int, Contestant>();
         private string name;
         public string Name { get { return name; } private set { name = value; } }
+        private MailboxAddress email;
+        public MailboxAddress Email { get { return email; } private set { email = value; } }
+        public int numberOfContestants;
 
         // member methods
-        public Sweepstakes(string name)
+        public Sweepstakes(string name, MailboxAddress email)
         {
             this.Name = name;
+            this.Email = email;
         }
 
         public void RunSweepstakes()
@@ -28,11 +34,12 @@ namespace sweepstakes
         private void SweepstakesSetup()
         {
             GUI.SweepstakesSetup();
-            int numberOfContestants = Int32.Parse(Console.ReadLine());
+            numberOfContestants = Int32.Parse(Console.ReadLine());
             int i = 0;
             while (i < numberOfContestants)
             {
                 EnterContestantInfo();
+                i++;
             }
         }
         private void PreWinnerPrompt()
@@ -50,9 +57,12 @@ namespace sweepstakes
             }
             else if (answer == "no")
             {
-                Contestant winnerWinnerChickenDinner = PickWinner();
-                Console.WriteLine(winnerWinnerChickenDinner.FirstName + " " + winnerWinnerChickenDinner.LastName + " is the sweepstake winner!");
+                // string winner = PickWinner();
+                string winner = "Jacob Taylor";
+                Console.WriteLine(winner + " is the sweepstake winner!");
                 Console.ReadKey();
+                Console.WriteLine("Sending emails...");
+                SendEmails(contestantDictonary, winner);
             }
             else
             {
@@ -81,7 +91,7 @@ namespace sweepstakes
             contestant.registrationNumber = key;
             contestantDictonary.Add(key, contestant);
         }
-        private Contestant PickWinner()
+        private string PickWinner()
         {
             Random winningNumber = new Random();
             Contestant winningContestant = new Contestant();
@@ -101,13 +111,38 @@ namespace sweepstakes
                     isWinnerPicked = false;
                 }
             }
-            // string winnerWinnerChickenDinner = winningContestant.FirstName + " " + winningContestant.LastName;
-            return winningContestant;
+            string winnerWinnerChickenDinner = winningContestant.FirstName + " " + winningContestant.LastName;
+            return winnerWinnerChickenDinner;
         }
         private void PrintContestantInfo(Contestant contestant)
         {
             GUI.DisplayContestantInfo(contestant);
             Console.ReadKey();
+        }
+        private void SendEmails(Dictionary<int, Contestant> dictionary, string winner)
+        {
+            var winnerEmails = new MimeMessage();
+            winnerEmails.From.Add(Email);
+            //for (int i = 1; i <= dictionary.Count(); i++)
+            //{
+            //    winnerEmails.To.Add(MailboxAddress.Parse(dictionary.ElementAt(i).Value.EmailAddress));
+            //}
+            foreach(var thing in dictionary)
+            {
+                winnerEmails.To.Add(MailboxAddress.Parse(thing.Value.EmailAddress));
+            }
+            winnerEmails.Subject = "Sweepstakes Winner!";
+
+            var bodyBuilder = new BodyBuilder();
+            bodyBuilder.TextBody = "A winner has been selected! congrats to " + winner + ".";
+            winnerEmails.Body = bodyBuilder.ToMessageBody();
+
+            SmtpClient smtpClient = new SmtpClient();
+            smtpClient.Connect("smtp.yahoo.com", 465, true);
+            smtpClient.AuthenticationMechanisms.Remove("XOAUTH2");
+            smtpClient.Authenticate("githubmailbot@yahoo.com", "!NotaPassword001");
+            smtpClient.Send(winnerEmails);
+            smtpClient.Disconnect(true);
         }
     }
 }

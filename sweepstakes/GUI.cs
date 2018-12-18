@@ -91,19 +91,37 @@ namespace sweepstakes
                 Console.WriteLine(item);
             }
         }
-        public static void CreateSweepstakeMenu()
+        public static void CreateSweepstakeMenu(int phase)
         {
-            Console.Clear();
-            createSweepstakeMenu = new string[,]
+            if (phase == 1)
             {
+                Console.Clear();
+                createSweepstakeMenu = new string[,]
+                {
                 { " _____________________________________________________ " },
                 { "|-----------------------------------------------------|" },
                 { "|  Please enter in the name of your new sweepstakes:  |" },
                 { "|_____________________________________________________|" }
-            };
-            foreach (var item in createSweepstakeMenu)
+                };
+                foreach (var item in createSweepstakeMenu)
+                {
+                    Console.WriteLine(item);
+                }
+            }
+            else if (phase == 2)
             {
-                Console.WriteLine(item);
+                Console.Clear();
+                createSweepstakeMenu = new string[,]
+                {
+                { " _____________________________________________________ " },
+                { "|-----------------------------------------------------|" },
+                { "| Please enter in the email for your new sweepstakes: |" },
+                { "|_____________________________________________________|" }
+                };
+                foreach (var item in createSweepstakeMenu)
+                {
+                    Console.WriteLine(item);
+                }
             }
         }
         public static void SweepstakesSetup()

@@ -5,3 +5,9 @@ D:\devCodeCamp\C#\sweepstakes\sweepstakes\bin\Debug\sweepstakes.exe
 D:\devCodeCamp\C#\sweepstakes\sweepstakes\bin\Debug\sweepstakes.pdb
 D:\devCodeCamp\C#\sweepstakes\sweepstakes\obj\Debug\sweepstakes.exe
 D:\devCodeCamp\C#\sweepstakes\sweepstakes\obj\Debug\sweepstakes.pdb
+D:\devCodeCamp\C#\sweepstakes\sweepstakes\bin\Debug\BouncyCastle.Crypto.dll
+D:\devCodeCamp\C#\sweepstakes\sweepstakes\bin\Debug\MailKit.dll
+D:\devCodeCamp\C#\sweepstakes\sweepstakes\bin\Debug\MimeKit.dll
+D:\devCodeCamp\C#\sweepstakes\sweepstakes\bin\Debug\MailKit.xml
+D:\devCodeCamp\C#\sweepstakes\sweepstakes\bin\Debug\MimeKit.xml
+D:\devCodeCamp\C#\sweepstakes\sweepstakes\obj\Debug\sweepstakes.csproj.CopyComplete
